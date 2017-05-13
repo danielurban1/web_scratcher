@@ -33,16 +33,13 @@ for movie in list_of_movies:
     start = movie.index( first ) + len( first )
     end = movie.index( last, start )
     year = movie[start:end]
-    movie = [year, title]
+    movie = [title, year]
     year_title.append(movie)
-year_title = sorted(year_title)
-year_title.insert(0, ["year", "title"])
+year_title = sorted(year_title,  key = lambda x: int(x[1]))
+year_title.insert(0, ["title", "year"])
 
-print(year_title)
-for abc in year_title:
-    for arument in abc:
-        csv_file = open('%s.csv' % "movies", 'w')
-        csv_file.write(abc[1])
-        csv_file.write(abc[0])
-        csv_file.close()
+
+with open ('%s.csv' % "movies", 'w', newline='') as file:
+    a = csv.writer(file, delimiter=',')
+    a.writerows(year_title)
 print("Done!")
